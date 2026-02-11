@@ -10,7 +10,7 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::user(); // safer than auth()->user()
+        $user = Auth::user();
 
         if (!$user || $user->role !== 'admin') {
             abort(403, 'Access denied');
