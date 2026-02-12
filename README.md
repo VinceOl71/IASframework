@@ -29,30 +29,30 @@ It features user registration, login, password security (strength meter and show
 ## Installation
 
 1. Clone the repository
-   git clone https://github.com/VinceOl71/IASframework.git
-   cd IASframework
+   - git clone https://github.com/VinceOl71/IASframework.git
+   - cd IASframework
 
-2. Install dependencies
-   composer install
-   npm install
-   npm run build
+3. Install dependencies
+   - composer install
+   - npm install
+   - npm run build
 
-3. Setup environment
-   cp .env.example .env
-   php artisan key:generate
+4. Setup environment
+   - cp .env.example .env
+   - php artisan key:generate
 
-   Edit .env to set your database credentials
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=your_database
-   DB_USERNAME=root
-   DB_PASSWORD=secret
+   ### Edit .env to set your database credentials
+   - DB_CONNECTION=mysql
+   - DB_HOST=127.0.0.1
+   - DB_PORT=3306
+   - DB_DATABASE=your_database
+   - DB_USERNAME=root
+   - DB_PASSWORD=secret
 
-4. Run Migrations
+5. Run Migrations
    php artisan migrate
 
-5. Serve the application
+6. Serve the application
    php artisan serve
 
 Members and their contributions:
