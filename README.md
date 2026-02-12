@@ -50,10 +50,10 @@ It features user registration, login, password security (strength meter and show
    - DB_PASSWORD=secret
 
 5. Run Migrations
-   php artisan migrate
+   - php artisan migrate
 
 6. Serve the application
-   php artisan serve
+   - php artisan serve
 
 Members and their contributions:
 
