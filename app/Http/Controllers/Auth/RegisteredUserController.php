@@ -15,7 +15,7 @@ use Illuminate\View\View;
 class RegisteredUserController extends Controller
 {
     /**
-     * Display the registration view.
+     * Show the registration form
      */
     public function create(): View
     {
@@ -23,28 +23,47 @@ class RegisteredUserController extends Controller
     }
 
     /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * Handle registration request
      */
     public function store(Request $request): RedirectResponse
     {
+        // Validate input with password strength rules
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users,email',
+            ],
+
+            'password' => [
+                'required',
+                'confirmed', // Requires password_confirmation field
+                Rules\Password::min(8)   // Minimum 8 characters
+                    ->letters()          // At least one letter
+                    ->mixedCase()        // Uppercase and lowercase
+                    ->numbers()          // At least one number
+                    ->symbols(),         // At least one symbol
+            ],
         ]);
 
+        // Create the new user
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+        // Fire Registered event
         event(new Registered($user));
 
+        // Log the user in
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // Redirect to dashboard
+        return redirect()->route('dashboard');
     }
 }
